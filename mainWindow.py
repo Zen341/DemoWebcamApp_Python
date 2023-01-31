@@ -7,7 +7,7 @@ from pathlib import Path
 import os
 
 # Define a global Mat variable
-frame = np.zeros((rows, columns, channels), dtype = "uint8")
+# frame = np.zeros((rows, columns, channels), dtype = "uint8")
 
 # Define directory to save samples
 projDir = os.path.dirname(os.path.abspath(__file__))
@@ -85,7 +85,11 @@ def open_camera():
 
 # Create a function to save image
 def save_image():
-    # _, frame = vid.read()
+    _, frame = vid.read()
+
+    if isSharpen.get() == 1:
+        frame = imgSharp(frame)
+
     now = dt.now()
     filename = smplImgPath + 'image_' + now.strftime("%Y_%m_%d_%H_%M_%S") + '.jpg'
     cv2.imwrite(filename, frame)
